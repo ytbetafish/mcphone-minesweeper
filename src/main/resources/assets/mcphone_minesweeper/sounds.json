@@ -1,0 +1,17 @@
+{
+  "click": {
+    "sounds": [
+      { "name": "mcphone_minesweeper:click", "stream": false }
+    ]
+  },
+  "win": {
+    "sounds": [
+      { "name": "mcphone_minesweeper:win", "stream": false }
+    ]
+  },
+  "lose": {
+    "sounds": [
+      { "name": "mcphone_minesweeper:lose", "stream": false }
+    ]
+  }
+}

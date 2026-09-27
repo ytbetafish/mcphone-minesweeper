@@ -1,0 +1,67 @@
+plugins {
+    id 'java-library'
+    id 'net.neoforged.moddev' version '2.0.143'
+    id 'idea'
+}
+
+version = mod_version
+group = mod_group_id
+
+base {
+    archivesName = mod_id
+}
+
+// Mojang 在 1.21.1 发给玩家的是 Java 21，模组就得对着 21 编。
+java.toolchain.languageVersion = JavaLanguageVersion.of(21)
+
+neoForge {
+    enable {
+        setVersion(project.neo_version)
+        // 本机 4GB 内存跑不动 1.21.1 的 Vineflower 全量反编译（官方 1.21.3 起已把反编译堆提到 4G），
+        // 改用 NeoForge 二进制补丁管线，跳过 decompile/recompile，一样能编译出模组 jar。
+        setDisableRecompilation(true)
+    }
+
+    parchment {
+        mappingsVersion = project.parchment_mappings_version
+        minecraftVersion = project.parchment_minecraft_version
+    }
+
+    runs {
+        client {
+            client()
+        }
+
+        configureEach {
+            systemProperty 'forge.logging.markers', 'REGISTRIES'
+            logLevel = org.slf4j.event.Level.DEBUG
+        }
+    }
+
+    mods {
+        "${mod_id}" {
+            sourceSet(sourceSets.main)
+        }
+    }
+}
+
+// localRuntime：开发环境里真的装上，但不传播给下游。
+configurations {
+    runtimeClasspath.extendsFrom localRuntime
+}
+
+dependencies {
+    // MCphone 本体。硬前置。走 files()，因为本体没有公开 maven。
+    def mcphoneJar = "libs/mcphone-${mcphone_version}-1.21.1-neoforge.jar"
+    compileOnly files(mcphoneJar)
+    localRuntime files(mcphoneJar)
+}
+
+
+tasks.withType(JavaCompile).configureEach {
+    options.encoding = 'UTF-8'
+}
+
+tasks.withType(ProcessResources).configureEach {
+    filteringCharset = 'UTF-8'
+}

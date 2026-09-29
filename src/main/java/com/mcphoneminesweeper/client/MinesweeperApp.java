@@ -44,7 +44,7 @@ public final class MinesweeperApp implements IPhoneApp {
    }
 
    public String getAuthor() {
-      return "renjuanzhe";
+      return "ytbetafish";
    }
 
    public String getDescription() {

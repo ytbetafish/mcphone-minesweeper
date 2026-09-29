@@ -1,0 +1,35 @@
+modLoader="javafml"
+loaderVersion="[1,)"
+license="MIT"
+logoFile="logo.png"
+# 玩家在 mcphone 手机里打开"扫雷"应用时看到的名称
+[[mods]]
+modId="mcphone_minesweeper"
+version="1.0.28"
+displayName="MCphone 扫雷"
+authors="ytbetafish"
+description='''把 Windows XP《扫雷》完整搬进 mcphone 手机屏幕的附属模组：游戏区、可变表情的笑脸、LED 计数、游戏菜单（快速开局/难度/自定义/标记/颜色/声音/英雄榜）、自定义雷区对话框与扫雷英雄榜。'''
+
+# NeoForge 本体：必需
+[[dependencies.mcphone_minesweeper]]
+modId="neoforge"
+type="required"
+versionRange="[21.1.200,)"
+ordering="NONE"
+side="CLIENT"
+
+# Minecraft：必需
+[[dependencies.mcphone_minesweeper]]
+modId="minecraft"
+type="required"
+versionRange="[1.21.1]"
+ordering="NONE"
+side="CLIENT"
+
+# MCphone 本体：硬前置，且必须在本模组之前加载（本模组要实现它的 IPhoneApp）
+[[dependencies.mcphone_minesweeper]]
+modId="mcphone"
+type="required"
+versionRange="[1.10.2,)"
+ordering="AFTER"
+side="CLIENT"
